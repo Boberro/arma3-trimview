@@ -33,7 +33,7 @@ class RscTitles
         duration = 1e+1000;
         class controls 
         { 
-            class bbrr_trimview_Display_Bg
+            class bbrr_trimview_Display_Short_Bg
             { 
                 idc = 0; 
                 type = 0; //CT_STATIC;
@@ -48,7 +48,7 @@ class RscTitles
                 sizeEx = 0.1; 
                 text = "";
             };
-            class bbrr_trimview_Display_Icon: bbrr_trimview_Display_Bg
+            class bbrr_trimview_Display_Short_Icon: bbrr_trimview_Display_Short_Bg
             { 
                 idc = 1; 
                 style = 2096; //ST_PICTURE 48 //+2048 for aspect ratio
@@ -63,7 +63,7 @@ class RscTitles
         duration = 1e+1000;
         class controls 
         { 
-            class bbrr_trimview_Display_Bg
+            class bbrr_trimview_Display_Long_Bg
             { 
                 idc = 0; 
                 type = 0; //CT_STATIC;
@@ -78,11 +78,11 @@ class RscTitles
                 sizeEx = 0.1; 
                 text = "";
             };
-            class bbrr_trimview_Display_Icon: bbrr_trimview_Display_Bg
+            class bbrr_trimview_Display_Long_Icon: bbrr_trimview_Display_Long_Bg
             { 
                 idc = 1; 
                 style = 2096; //ST_PICTURE 48 //+2048 for aspect ratio
-                text = "bbrr_trimview\bbrr_trimview_icon_short.paa";
+                text = "bbrr_trimview\bbrr_trimview_icon_long.paa";
             };
         }; 
     };

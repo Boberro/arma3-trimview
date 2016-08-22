@@ -20,11 +20,6 @@ class Extended_PostInit_EventHandlers
     };
 };
 
-// class bbrr_trimview_settings
-// {
-//     #include "\userconfig\bbrr_trimview\bbrr_trimview_config.hpp"
-// };
-
 class RscTitles
 {
     class bbrr_trimview_Display_Short

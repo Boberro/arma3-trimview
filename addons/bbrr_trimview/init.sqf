@@ -29,9 +29,9 @@ bbrr_trimview_normalObjectViewDistance;
         ] call cba_fnc_addKeybind;
         [
             "TrimView",
-            "TrimViewToggleSquint",
-            ["Toggle Squint", "Press to lengthen the view distance. Press again to go back to normal"],
-            {_this call bbrr_trimview_fnc_toggle_squint},
+            "TrimViewToggleFocus",
+            ["Toggle Focus", "Press to lengthen the view distance. Press again to go back to normal"],
+            {_this call bbrr_trimview_fnc_toggle_focus},
             "",
             [DIK_HOME, [false, true, false]],
             false,
@@ -57,7 +57,7 @@ bbrr_trimview_normalObjectViewDistance;
         [
             "bbrr_trimview_settings_maxViewDistance",  // _setting,
             "SLIDER",  // _settingType,
-            "Squint-mode view distance",  // _title,
+            "Focus-mode view distance",  // _title,
             "TrimView",  // _category,
             [200, 15000, 2000, 0],  // _valueInfo,
             false,  // _isGlobal,
@@ -135,7 +135,7 @@ bbrr_trimview_fnc_toggle_trim = {
     _handled;
 };
 
-bbrr_trimview_fnc_toggle_squint = {
+bbrr_trimview_fnc_toggle_focus = {
     _handled = false;
 
     if(!(player getVariable ["bbrr_trimview_mode", false] isEqualTo "long")) then {

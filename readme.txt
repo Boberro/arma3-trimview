@@ -20,3 +20,9 @@ Default key binding is Left Ctrl + End. Press it once to trim view distance (an 
 You can change the default binding going to Options -> Controls -> Configure addons (bottom of the screen) and selecting Boberro's TrimView from the drop-down list.
 
 By default view distance is trimmed to 200 meters, but you can change it in userconfig file (userconfig/bbrr_trimview/bbrr_trimview_config.hpp)
+
+
+Changelog (probably does not interest you, but I'm old and can forget stuff otherwise):
+v1.0.2 - added ability to squint, in addition to shortening the view distance; out with the userconfig, all hail the CBA!
+v1.0.1 - experimental ability to lengthen the view distance instead of shortening it
+v1.0 - initial release

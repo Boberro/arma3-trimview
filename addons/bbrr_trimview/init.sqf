@@ -39,7 +39,7 @@ bbrr_trimview_fnc_trimViewDistance = {
         bbrr_trimview_normalViewDistance = viewDistance;
         setViewDistance bbrr_trimview_minViewDistance;
         
-        bbrr_trimview_rscLayer cutRsc["bbrr_trimview_Display", "PLAIN", 0.5, true];
+        bbrr_trimview_rscLayer cutRsc["bbrr_trimview_Display_Short", "PLAIN", 0.5, true];
         player setVariable ["bbrr_trimview_isOn", true];
     };
     _handled;

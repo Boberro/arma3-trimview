@@ -2,39 +2,77 @@ if !(hasInterface) exitwith {};
 
 #include "\a3\editor_f\Data\Scripts\dikCodes.h"
 
+bbrr_trimview_rscLayer = "bbrr_trimview" call BIS_fnc_rscLayer;
+
+// Init variables
+// TODO: Is it really how you do it though?
 bbrr_trimview_normalViewDistance;
 bbrr_trimview_normalObjectViewDistance;
 
-bbrr_trimview_rscLayer = "bbrr_trimview" call BIS_fnc_rscLayer;
-
+// Set up CBA (keys, settings)
 [] spawn {
     waitUntil { sleep 0.1; !(isNull(findDisplay 46)); };
 
     // Check if CBA Keybinding system is available.
     if(!isNil "cba_keybinding") then {
-        // Register PtH keybinds via CBA
-        ["Boberro's TrimView", "TrimViewToggleTrim", ["Toggle Trim", "Press to shorten the view distance. Press again to go back to normal"], {_this call bbrr_trimview_fnc_toggle_trim}, "", [DIK_END, [false, true, false]], false, 0, false] call cba_fnc_addKeybind;
-        ["Boberro's TrimView", "TrimViewToggleSquint", ["Toggle Squint", "Press to lengthen the view distance. Press again to go back to normal"], {_this call bbrr_trimview_fnc_toggle_squint}, "", [DIK_HOME, [false, true, false]], false, 0, false] call cba_fnc_addKeybind;
-        
-        [] call bbrr_trimview_fnc_processSettings;
+        // Key bindings
+        [
+            "TrimView",
+            "TrimViewToggleTrim",
+            ["Toggle Trim", "Press to shorten the view distance. Press again to go back to normal"],
+            {_this call bbrr_trimview_fnc_toggle_trim},
+            "",
+            [DIK_END, [false, true, false]],
+            false,
+            0,
+            false
+        ] call cba_fnc_addKeybind;
+        [
+            "TrimView",
+            "TrimViewToggleSquint",
+            ["Toggle Squint", "Press to lengthen the view distance. Press again to go back to normal"],
+            {_this call bbrr_trimview_fnc_toggle_squint},
+            "",
+            [DIK_HOME, [false, true, false]],
+            false,
+            0,
+            false
+        ] call cba_fnc_addKeybind;
 
+        // TODO: Here I should check if settings system is available, but documentation is scarce at best.
+        // Settings
+        [
+            "bbrr_trimview_settings_minViewDistance",  // _setting,
+            "SLIDER",  // _settingType,
+            "Trim-mode view distance",  // _title,
+            "TrimView",  // _category,
+            [200, 15000, 200, 0],  // _valueInfo,
+            false,  // _isGlobal,
+            {
+                params ["_value"];
+                bbrr_trimview_minViewDistance = _value;
+            }  // _script
+        ] call CBA_Settings_fnc_init;
+
+        [
+            "bbrr_trimview_settings_maxViewDistance",  // _setting,
+            "SLIDER",  // _settingType,
+            "Squint-mode view distance",  // _title,
+            "TrimView",  // _category,
+            [200, 15000, 2000, 0],  // _valueInfo,
+            false,  // _isGlobal,
+            {
+                params ["_value"];
+                bbrr_trimview_maxViewDistance = _value;
+            }  // _script
+        ] call CBA_Settings_fnc_init;
+        
+        // Finally
         _version = getText (configFile >> "CfgPatches" >> "bbrr_trimview" >> "version");
-        diag_log text format["Boberro's TrimView: v%1, Init complete.", _version];
+        diag_log text format["TrimView: v%1, Init complete.", _version];
     } else {
         _version = getText (configFile >> "CfgPatches" >> "bbrr_trimview" >> "version");
-        diag_log text format["Boberro's TrimView: v%1, could not Init. Please upgrade CBA to the current release version.", _version];
-    };
-};
-
-bbrr_trimview_fnc_processSettings = {
-    bbrr_trimview_minViewDistance = 200;
-    bbrr_trimview_maxViewDistance = 3000;
-
-    if(isNumber (configFile >> "bbrr_trimview_settings" >> "BBRR_TRIMVIEW_SHORTENED_VIEW_DISTANCE")) then {
-        bbrr_trimview_minViewDistance = (getNumber (configFile >> "bbrr_trimview_settings" >> "BBRR_TRIMVIEW_SHORTENED_VIEW_DISTANCE"));
-    };
-    if(isNumber (configFile >> "bbrr_trimview_settings" >> "BBRR_TRIMVIEW_LENGTHENED_VIEW_DISTANCE")) then {
-        bbrr_trimview_maxViewDistance = (getNumber (configFile >> "bbrr_trimview_settings" >> "BBRR_TRIMVIEW_LENGTHENED_VIEW_DISTANCE"));
+        diag_log text format["TrimView: v%1, could not Init. Please upgrade CBA to the current release version.", _version];
     };
 };
 

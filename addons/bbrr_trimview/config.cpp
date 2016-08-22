@@ -8,7 +8,7 @@ class CfgPatches
         requiredAddons[] = {"CBA_MAIN"};
         version = "1.0.0";
         author[] = {"boberro"};
-        authorUrl = "https://github.com/boberro";
+        authorUrl = "https://github.com/Boberro/arma3-trimview/releases";
     };
 };
 
@@ -20,10 +20,10 @@ class Extended_PostInit_EventHandlers
     };
 };
 
-class bbrr_trimview_settings
-{
-    #include "\userconfig\bbrr_trimview\bbrr_trimview_config.hpp"
-};
+// class bbrr_trimview_settings
+// {
+//     #include "\userconfig\bbrr_trimview\bbrr_trimview_config.hpp"
+// };
 
 class RscTitles
 {

@@ -66,6 +66,19 @@ bbrr_trimview_normalObjectViewDistance;
                 bbrr_trimview_maxViewDistance = _value;
             }  // _script
         ] call CBA_Settings_fnc_init;
+
+        [
+            "bbrr_trimview_settings_stopNaggingAboutABug",  // _setting,
+            "CHECKBOX",  // _settingType,
+            "Stop nagging me!",  // _title,
+            "TrimView",  // _category,
+            false,  // _valueInfo,
+            false,  // _isGlobal,
+            {
+                params ["_value"];
+                bbrr_trimview_stopNaggingAboutABug = _value;
+            }  // _script
+        ] call CBA_Settings_fnc_init;
         
         // Finally
         _version = getText (configFile >> "CfgPatches" >> "bbrr_trimview" >> "version");
@@ -85,12 +98,12 @@ bbrr_trimview_fnc_shortenViewDistance = {
             bbrr_trimview_normalViewDistance = viewDistance;
             bbrr_trimview_normalObjectViewDistance = getObjectViewDistance;
         };
-        if (bbrr_trimview_normalViewDistance > bbrr_trimview_minViewDistance) then {
+        if (bbrr_trimview_normalViewDistance >= bbrr_trimview_minViewDistance) then {
         	setViewDistance bbrr_trimview_minViewDistance;
         	bbrr_trimview_rscLayer cutRsc["bbrr_trimview_Display_Short", "PLAIN", 0.5, true];
         	player setVariable ["bbrr_trimview_mode", "short"];
         } else {
-        	hint "Your normal view distance setting is shorter than what you're trying to trim it to.\n\nGo to Options-> Game-> Configure addons to change trim setting.";
+        	hint "TrimView:\nYour normal view distance setting is shorter than what you're trying to trim it to.\n\nGo to Options-> Game-> Configure addons to change trim setting.";
     	};
     };
     _handled;
@@ -105,14 +118,19 @@ bbrr_trimview_fnc_lengthenViewDistance = {
             bbrr_trimview_normalViewDistance = viewDistance;
             bbrr_trimview_normalObjectViewDistance = getObjectViewDistance;
         };
-        if (bbrr_trimview_normalViewDistance < bbrr_trimview_maxViewDistance) then {
+        if (bbrr_trimview_normalViewDistance <= bbrr_trimview_maxViewDistance) then {
 	        setViewDistance bbrr_trimview_maxViewDistance;
 	        setObjectViewDistance [bbrr_trimview_maxViewDistance, bbrr_trimview_normalObjectViewDistance select 1];
 	        
 	        bbrr_trimview_rscLayer cutRsc["bbrr_trimview_Display_Long", "PLAIN", 0.5, true];
 	        player setVariable ["bbrr_trimview_mode", "long"];
+
+	        // Warn user about a bug in Arma engine
+	        if (!bbrr_trimview_stopNaggingAboutABug && (bbrr_trimview_normalViewDistance == (bbrr_trimview_normalObjectViewDistance select 0))) then {
+	        	Hint "TrimView:\nA bug in the game engine does not allow me to show you objects that are further than your View Distance setting in video options.\nFor focus to work correctly, go to Options-> Video and raise 'View distance' slider while keeping 'Object view distance' as it was.\n\nTo suppress this warning, go to Option->Game->Configure addons and check 'Stop nagging me' option.";
+	        };
     	} else {
-    		hint "Your normal view distance setting is longer than what you're trying to lengthen it to.\n\nGo to Options-> Game-> Configure addons to change focus setting.";
+    		hint "TrimView:\nYour normal view distance setting is longer than what you're trying to lengthen it to.\n\nGo to Options-> Game-> Configure addons to change focus setting.";
     	}
     };
     _handled;

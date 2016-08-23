@@ -85,10 +85,13 @@ bbrr_trimview_fnc_shortenViewDistance = {
             bbrr_trimview_normalViewDistance = viewDistance;
             bbrr_trimview_normalObjectViewDistance = getObjectViewDistance;
         };
-        setViewDistance bbrr_trimview_minViewDistance;
-        
-        bbrr_trimview_rscLayer cutRsc["bbrr_trimview_Display_Short", "PLAIN", 0.5, true];
-        player setVariable ["bbrr_trimview_mode", "short"];
+        if (bbrr_trimview_normalViewDistance > bbrr_trimview_minViewDistance) then {
+        	setViewDistance bbrr_trimview_minViewDistance;
+        	bbrr_trimview_rscLayer cutRsc["bbrr_trimview_Display_Short", "PLAIN", 0.5, true];
+        	player setVariable ["bbrr_trimview_mode", "short"];
+        } else {
+        	hint "Your normal view distance setting is shorter than what you're trying to trim it to.\n\nGo to Options-> Game-> Configure addons to change trim setting.";
+    	};
     };
     _handled;
 };
@@ -102,11 +105,15 @@ bbrr_trimview_fnc_lengthenViewDistance = {
             bbrr_trimview_normalViewDistance = viewDistance;
             bbrr_trimview_normalObjectViewDistance = getObjectViewDistance;
         };
-        setViewDistance bbrr_trimview_maxViewDistance;
-        setObjectViewDistance [bbrr_trimview_maxViewDistance, bbrr_trimview_normalObjectViewDistance select 1];
-        
-        bbrr_trimview_rscLayer cutRsc["bbrr_trimview_Display_Long", "PLAIN", 0.5, true];
-        player setVariable ["bbrr_trimview_mode", "long"];
+        if (bbrr_trimview_normalViewDistance < bbrr_trimview_maxViewDistance) then {
+	        setViewDistance bbrr_trimview_maxViewDistance;
+	        setObjectViewDistance [bbrr_trimview_maxViewDistance, bbrr_trimview_normalObjectViewDistance select 1];
+	        
+	        bbrr_trimview_rscLayer cutRsc["bbrr_trimview_Display_Long", "PLAIN", 0.5, true];
+	        player setVariable ["bbrr_trimview_mode", "long"];
+    	} else {
+    		hint "Your normal view distance setting is longer than what you're trying to lengthen it to.\n\nGo to Options-> Game-> Configure addons to change focus setting.";
+    	}
     };
     _handled;
 };

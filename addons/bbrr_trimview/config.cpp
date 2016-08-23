@@ -6,7 +6,7 @@ class CfgPatches
         weapons[] = {};
         requiredVersion = 1.62;
         requiredAddons[] = {"CBA_MAIN"};
-        version = "1.0.2";
+        version = "1.0.3";
         author[] = {"boberro"};
         authorUrl = "https://github.com/Boberro/arma3-trimview/releases";
     };

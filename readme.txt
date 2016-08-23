@@ -1,5 +1,5 @@
 TrimView by boberro
-v1.0.2
+v1.0.3
 https://github.com/Boberro/arma3-trimview/releases
 
 Acknowledgement:
@@ -36,6 +36,11 @@ http://www.bistudio.com/community/licenses/arma-public-license-share-alike
 
 Changelog (probably does not interest you, but I'm old and can forget stuff otherwise):
 ---------
-v1.0.2 - added ability to focus, in addition to shortening the view distance; out with the userconfig, all hail the CBA!
+v1.0.3 - fix: if normal view distance is bigger than focus distance, user should be warned instead of their config getting broken; same for trim
+
+v1.0.2 - feature: added ability to focus, in addition to shortening the view distance
+         tweak: out with the userconfig, all hail the CBA!
+
 v1.0.1 - experimental ability to lengthen the view distance instead of shortening it
+
 v1.0 - initial release
